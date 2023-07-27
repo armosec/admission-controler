@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admission-server-armo
+  labels:
+    app: admission-server-armo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admission-server-armo
+  template:
+    metadata:
+      labels:
+        app: admission-server-armo
+    spec:
+      containers:
+      - name: server
+        image: armosec/admission-controller:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8443
+        volumeMounts:
+        - name: tls-certs
+          mountPath: /etc/certs
+          readOnly: true
+      volumes:
+      - name: tls-certs
+        secret:
+          secretName: admission-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admission-server-armo
+spec:
+  selector:
+    app: admission-server-armo
+  ports:
+    - port: 443
+      targetPort: 8443
