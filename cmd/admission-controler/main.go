@@ -11,6 +11,7 @@ func main() {
 	var tlsKey, tlsCert, port string
 	flag.StringVar(&tlsKey, "tlsKey", "/etc/certs/tls.key", "Path to the tls key")
 	flag.StringVar(&tlsCert, "tlsCert", "/etc/certs/tls.crt", "Path to the TLS certificate")
+	flag.StringVar(&port, "port", "8443", "The port on which to listen")
 	flag.Parse()
 
 	server := server.NewServer(port)
