@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/armosec/admission-controller/internal/server"
+	"github.com/armosec/armo-admission-controller/internal/server"
 	"github.com/rs/zerolog/log"
 )
 

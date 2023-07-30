@@ -3,8 +3,8 @@ package handlers
 import (
 	"errors"
 
-	"github.com/armosec/admission-controller/internal/server/handlers/mutators"
-	"github.com/armosec/admission-controller/internal/server/handlers/validators"
+	"github.com/armosec/armo-admission-controller/internal/server/handlers/mutators"
+	"github.com/armosec/armo-admission-controller/internal/server/handlers/validators"
 	admission "k8s.io/api/admission/v1"
 )
 
