@@ -24,7 +24,7 @@ func (podMutator *PodMutator) Handle(admissionReview *admission.AdmissionReview)
 		}, nil
 	}
 
-	log.Info().Msgf("Pod's name is: %s", pod.GetName())
+	log.Info().Msgf("Pod's name is: %s\n", pod.GetName())
 
 	return &admission.AdmissionResponse{Allowed: true}, nil
 }
