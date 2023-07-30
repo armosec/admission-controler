@@ -51,7 +51,7 @@ func createAdmissionDeserializer() runtime.Decoder {
 }
 
 // Handles the raw http requests for an admission webhook.
-func AdmissionControlerHandler(w http.ResponseWriter, request *http.Request) {
+func AdmissionControllerHandler(w http.ResponseWriter, request *http.Request) {
 	var body []byte
 
 	if request.Body != nil {
