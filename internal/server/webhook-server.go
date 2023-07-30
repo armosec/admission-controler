@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/armosec/admission-controler/internal/server/handlers"
+	"github.com/armosec/admission-controller/internal/server/handlers"
 )
 
 func NewServer(port string) *http.Server {
