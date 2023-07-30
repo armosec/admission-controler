@@ -9,13 +9,13 @@ webhooks:
       service:
         name: admission-server-armo
         namespace: default
-        path: "/armo-admission-controler"
+        path: "/armo-admission-controler/validating"
       caBundle: "${CA_BUNDLE}"
     admissionReviewVersions: ["v1"]
     sideEffects: None
     rules:
       - operations: ["CREATE"]
-        apiGroups: ["apps"]
+        apiGroups: [""]
         apiVersions: ["v1"]
         resources: ["pods", "deployments"]
     failurePolicy: Ignore
@@ -30,13 +30,13 @@ webhooks:
       service:
         name: admission-server-armo
         namespace: default
-        path: "/armo-admission-controler"
+        path: "/armo-admission-controler/mutating"
       caBundle: "${CA_BUNDLE}"
     admissionReviewVersions: ["v1"]
     sideEffects: None
     rules:
       - operations: ["CREATE"]
-        apiGroups: ["apps"]
+        apiGroups: [""]
         apiVersions: ["v1"]
         resources: ["pods", "deployments"]
     failurePolicy: Ignore

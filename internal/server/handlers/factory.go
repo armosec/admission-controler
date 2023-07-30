@@ -3,17 +3,17 @@ package handlers
 import (
 	"errors"
 
+	"github.com/armosec/admission-controler/internal/server/handlers/mutators"
 	"github.com/armosec/admission-controler/internal/server/handlers/validators"
 	admission "k8s.io/api/admission/v1"
 )
 
-const (
-	Validator = "ValidatingWebhookConfiguration"
-	Mutator   = "MutatingWebhookConfiguration"
-)
-
 var resourceToAdmissionValidators = map[string]AdmissionHandler{
 	Pod: new(validators.PodValidator),
+}
+
+var resourceToAdmissionMutators = map[string]AdmissionHandler{
+	Pod: new(mutators.PodMutator),
 }
 
 func createHandlerByResource(resource string, handlerType string) (AdmissionHandler, error) {
@@ -21,7 +21,7 @@ func createHandlerByResource(resource string, handlerType string) (AdmissionHand
 	case Validator:
 		return resourceToAdmissionValidators[resource], nil
 	case Mutator:
-		return nil, nil
+		return resourceToAdmissionMutators[resource], nil
 	default:
 		return nil, errors.New("invalid handler type")
 	}
@@ -31,8 +31,8 @@ func getResourceByRequest(admissionReview *admission.AdmissionReview) string {
 	return admissionReview.Request.Resource.Resource
 }
 
-func CreateAdmissionHandlerByRequest(admissionReview *admission.AdmissionReview) (AdmissionHandler, error) {
-	resource := getResourceByRequest(admissionReview)
+func CreateAdmissionHandlerByRequest(admissionRequest *AdmissionRequest) (AdmissionHandler, error) {
+	resource := getResourceByRequest(admissionRequest.admissionReview)
 
-	return createHandlerByResource(resource, admissionReview.Kind)
+	return createHandlerByResource(resource, admissionRequest.requestSource)
 }
