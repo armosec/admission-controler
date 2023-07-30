@@ -1,4 +1,4 @@
-module github.com/armosec/admission-controler
+module github.com/armosec/armo-admission-controller
 
 go 1.18
 
