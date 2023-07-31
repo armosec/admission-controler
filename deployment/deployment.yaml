@@ -14,6 +14,7 @@ spec:
       labels:
         app: admission-server-armo
     spec:
+      hostname: armo-server
       containers:
       - name: server
         image: armosec/admission-controller:latest
@@ -24,6 +25,11 @@ spec:
         - name: tls-certs
           mountPath: /etc/certs
           readOnly: true
+      - name: alertmanager
+        image: quay.io/prometheus/alertmanager:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9093
       volumes:
       - name: tls-certs
         secret:
@@ -39,3 +45,16 @@ spec:
   ports:
     - port: 443
       targetPort: 8443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: armo-alertmanager
+spec:
+  type: NodePort
+  selector:
+    app: admission-server-armo
+  ports:
+    - port: 9093
+      targetPort: 9093
+      nodePort: 30001
