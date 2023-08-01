@@ -18,7 +18,6 @@ func Alert(alertInfo *AlertInfo) {
 	response, err := sendAlertToAlertmanager(alert)
 	if err != nil {
 		log.Error().Msgf("Alert manager error: %v", err)
-		// log.Err(err)
 		return
 	}
 
